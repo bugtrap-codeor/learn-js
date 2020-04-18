@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>js操作DOM</title>
+</head>
+<body>
+    <h1>DOM操作</h1>
+    <p>圆的半径<input type="text" readonly id="r"></p>
+    <p>圆的周长<input type="text" readonly id="c"></p>
+    <p>圆的面积<input type="text" readonly id="s"></p>
+    <button onclick="b">切换用户</button>
+    <script type="text/javascript">
+        //实现圆的相关计算
+        document. write("</br>"+"javascript操作dom")
+        var r=prompt("请输入半径",5)
+        r=parseFloat(r)&&Number(r)
+        if(!isNaN(r)){
+            document.getElementById('r').value=r
+            document.getElementById('c').value=(2*3.14*r).toFixed(2)
+            document.getElementById('s').value=(3.14*r**2).toFixed(2)
+        }else{
+            alert("请输入正确的半径值")
+        }
+        
+        //实现切换用户
+        let but=document.querySelector('button')
+        let H1=document.querySelector('h1')
+        setName()
+        function setName() {
+            let myName=prompt('请输入你的名字')
+            // localStorage.setItem('name',myName)
+            H1.textContent='欢迎你' +myName
+        }
+        //cookies实现：
+        // if(!localStorage.getItem('name')){
+        //     setName()
+        // }else{
+        //     let storeName=localStorage.getItem('name')
+        //     H1.textContent='欢迎你'+storeName
+        // }
+        //点击绑定切换用户事件
+        but.onclick=function(){
+            setName()
+        }
+    </script>
+</body>
+</html>
