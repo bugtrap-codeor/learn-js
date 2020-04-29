@@ -2,7 +2,6 @@
 
 JavaScript学习
 
-
 ```javascript
 //javascript为Array对象提供了很多内置的方法
 //常见数组方法
@@ -95,4 +94,79 @@ function MultiParam(n,...param){
     param.unshift(n)
     console.log(param);
 }
+
+//变量的作用域
+1、全局变量：不在任何函数内显式(利用var关键字)声明的变量、在函数内省略var声明的变量、在同一个页面的所有脚本内都有效
+2、局部变量：在函数内利用var声明的变量，仅在函数体内有效
+3、块级变量：利用let声明的变量，仅在{}中间有效
+在函数作用域内 加var定义的变量是局部变量,不加var定义的就成了全局变量
+JS中声明全局变量
+声明方式一：
+使用var（关键字）+变量名(标识符)的方式在function外部声明，即为全局变量，否则在function声明的是局部变量
+var test = 5;  //全局变量
+function a（）
+{
+  var cc=3; //局部变量
+  alert(test);
+}
+function b（）{alert(test);}
+声明方式二：
+没有使用var，直接给标识符test赋值，这样会隐式的声明了全局变量test。即使该语句是在一个function内，当该function被执行后test变成了全局变量
+test = 5;//全局变量
+function a()
+{
+  aa=3; //全局变量
+  alert(test);
+}
+声明方式三：
+使用window全局对象来声明，全局对象的属性对应也是全局变量
+window.test = 5;
+
+var i=3;//全局
+function test(){
+    var i=4;//局部
+    if(i<6){
+        let i=5;//块级
+        console.log(i);
+    }
+    console.log(i);
+}
+console.log(i);
+test();
+
+//函数表达式:将声明的函数赋值给一个变量，通过变量完成函数的调用和参数的传递
+var m=function maxnum(a, b){
+    if(a>=b)
+        console.log(a);
+    else
+        console.log(b);
+}
+m(3,5);
+函数表达式与函数声明的方式比较:
+1、定义调用顺序不同
+函数声明的方式：定义和调用顺序不限
+函数表达式:先定义，后调用
+2、调用方式不同
+函数声明的方式：函数名()
+函数表达式:变量名()
+//匿名函数:没有函数名称的函数，可以有效的避免全局变量的污染以及函数名的冲突
+1、函数表达式中省略函数名称
+var m=function(a,b){
+    alert(a+b);
+}
+m(3,5);
+2、自调用方式
+(function(a,b){
+    alert(a*b);
+})(3,5);
+3、处理事件
+document.body.onload=function(){alert('hello');}
+//回调函数:一个函数A作为参数传递给另一个函数B，然后在B的函数体内调用函数A，将A称为回调函数
+function test(a, b, func){alert(func(a, b))};
+function func1(a, b){return a;}
+function func2(a, b){return b;}
+test(3,5, func2);
+
+//利用函数处理用户单击事件，根据用户传递参数的不同，完成字符串大小写的转换
+
 ```

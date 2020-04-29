@@ -90,6 +90,53 @@
     str+='</ul>';
     //4、设置样式：设置为行内元素、前导符去掉、超链接去默认格式、设置鼠标滑过时的颜色
     document.getElementById('nav').innerHTML=str;
+    document.body.onload=function(){alert('hello');}
+
+    //大小写转换
+    function deal(op){
+        var str=document.getElementById('old').value;
+        switch(op){
+            case 'upper':
+            document.getElementById('new').value=str.toUpperCase();break;
+            case 'lower':
+            document.getElementById('new').value=str.toLowerCase();break;
+        }
+    }
+
+    //简单计算器
+    function cal(func){
+        var num1=document.getElementById('num1').value;
+        var num2=document.getElementById('num2').value;
+        num1=parseInt(num1)&&Number(num1);
+        num2=parseInt(num2)&&Number(num2);
+        if(!isNaN(num1)&&!isNaN(num2)){
+            document.getElementById('res').value=func(num1,num2);
+        }
+        else{
+            alert('请输入合法数值');
+        }
+    }
+    function add(n1,n2){return n1+n2;}
+    function sub(n1,n2){return n1-n2;}
+    function mul(n1,n2){return n1*n2;}
+    function div(n1,n2){
+        if (n2==0){
+            alert('除数不能为0')
+            return '';
+        }
+        else{
+            return n1/n2;
+        } 
+    }
     </script>
+
+    <h2>大小写转换</h2>
+    元数据：<input type="text" id="old"><br>
+    操作：<input type="button" value="转大写" onclick="deal('upper')"><input type="button" name="" value="转小写" onclick="deal('lower')"><br>
+    新数据：<input type="text" readonly id="new">
+    <h2>网页计算器</h2>
+    整数1:<input type="text" id="num1"><br>整数2:<input type="text" id="num2"><br>
+    <button onclick="cal(add)">相加</button><button onclick="cal(sub)">相减</button><button onclick="cal(mul)">相乘</button><button onclick="cal(div)">相除</button><br>
+    结果:<input type="text" readonly="readonly" id="res">
 </body>
 </html>
