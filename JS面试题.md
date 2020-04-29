@@ -25,7 +25,7 @@ var foo={
 //2
 5.
 function Foo(){
-    getName = function () {console.log(1); }; 
+    getName = function () {console.log(1); };
     return this;
 }
 Foo.getName = function () {console.log(2);};
