@@ -2,9 +2,26 @@
 <head>
     <meta charset="utf-8">
     <title>js操作DOM</title>
+    <style type="text/css">
+    li{
+        display: inline-block;
+        width: 14.28%;
+        text-align: center;
+    }
+    li:hover{
+        background-color:yellow;
+    }
+    ul{
+        padding: 0px;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    </style>
 </head>
 <body>
-    <h1>DOM操作</h1>
+    <!-- <h1>DOM操作</h1>
     <p>圆的半径<input type="text" readonly id="r"></p>
     <p>圆的周长<input type="text" readonly id="c"></p>
     <p>圆的面积<input type="text" readonly id="s"></p>
@@ -56,6 +73,23 @@
         for(var i of a){
             console.log(i)
         }
+    </script> -->
+
+    <div id='nav'></div>
+    <script type="text/javascript">
+    //用javascript数组实现网站导航栏
+    //1、通过创建两个数组来保存导航选项和导航链接
+    var navlist=['首页','免费资源','课程中心','IT学院','学员故事','线上学院','技术社区'];
+    var linklist=['#','#','#','#','#','#','#'];
+    //2、生成导航栏：列表+超链接、无序列表+超链接
+    //3、通过遍历数组，生成导航选项和导航链接
+    var str='<ul>';
+    for(var i in navlist){
+        str+='<li><a href="'+'linklist[i]'+'">'+navlist[i]+'</a></li>';
+    }
+    str+='</ul>';
+    //4、设置样式：设置为行内元素、前导符去掉、超链接去默认格式、设置鼠标滑过时的颜色
+    document.getElementById('nav').innerHTML=str;
     </script>
 </body>
 </html>
