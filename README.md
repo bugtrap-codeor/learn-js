@@ -13,6 +13,7 @@ JavaScript学习
 ·使用console.log()写入到浏览器的控制台。
 
 ```javascript
+//toFixed()方法可把number四舍五入为指定小数位数的数字，返回值为string类型。
 //javascript为Array对象提供了很多内置的方法
 //常见数组方法
 var arr=[25,10,'bugtrap'];
