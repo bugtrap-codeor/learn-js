@@ -2,6 +2,16 @@
 
 JavaScript学习
 
+## JS输出
+
+·使用window.alert()，弹出警告框
+
+·使用document.write()方法将内容写到HTML文档中
+
+·使用innerHTML写入到HTML元素
+
+·使用console.log()写入到浏览器的控制台。
+
 ```javascript
 //javascript为Array对象提供了很多内置的方法
 //常见数组方法
