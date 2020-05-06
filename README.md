@@ -367,4 +367,106 @@ table{displaysinline;}
 th{background-color:gray;}
 td{text-align:center}
 
+错误处理
+//当发生错误时，JavaScript引擎会抛出一个错误对象，利用异常处理语句try...catch可以对错误对象进行捕获，捕获后可以查看错误信息。
+var e=new Error('除数不能为0')
+function div(numl,num2){
+    try{
+        if(num2==0)throw e//throw new Error('除数不能为0')
+        document.write(numl/num2)
+    }catch(e){
+        document.write(e)
+    }
+}
+div(10,0)
+
+一、原型
+//原型实现了对象间的联系，利用原型可以提高代码的复用率
+    在JavaScript中，每一个函数对象都有一个prototype属性，指向原型对象。原型对象中包含实例共享的方法和属性，也可以为其添加方法或属性。
+    利用构造函数创建的每个对象都与这个原型对象连接，因为JavaScript中的每个对象都有一个属性 `_proto_（双）指向它的原型对象`，也就是 `构造函数的prototype指向的对象`，当访问对象中的不存在的属性或方法时，会自动调用该 `对象的原型对象`的属性和方法。
+function Person(name){this.name=name;}
+Person.prototype.name='bugtrap';
+Person.prototype.sayhi=function(){document.write("我叫"+this.name);}
+var p1=new Person("java");
+p1.__proto__.sayhi();//我叫bugtrap
+var p2=new Person('script');
+p2.sayhi()//我叫script           利用原型实现继承
+二、继承
+//继承是在已有对象的基础上进行扩展，增加一些新的功能，得到一个新的对象。
+利用原型实现继承
+替换原型实现继承
+function Person(name){this.name=name;}
+Person.prototype={sayHi:function(){document.write("你好，我是新对象")}}
+var p=new Person('liu')
+p.sayHi()//你好，我是新对象
+利用Object.create()实现继承
+//Object.create(obj[,properties])obj：新创建的对象的原型，表示要继承的对象。properties:可选，也是一个对象，用于对新创建的对象进行初始化。
+var obj={name:'bugtrap'};
+var obj1=Object.create(obj);
+document.write(obj1.name);//bugtrap
+混入继承
+var o1={}
+var o2={name:"liu", age:16}
+function extend(o1,o2){
+    for(var i in o2)
+    o1[i]=o2[i];
+}
+extend(o1,o2)
+document.write(o1.name);
+//混入式继承和原型继承可以组合在一起使用，以对象的方式传递参数，或以对象的方式扩展原型对象的成员。
+function extend(o1,o2){
+    for(var i in o2)
+    o1[i]=o2[i];
+}
+function Person(option){extend(this, option)}//调用extend函数
+Person.prototype.extend=function(obj){extend(this, obj);}
+Person.prototype.extend({//调用原型方法
+    sayhi:function(){document.write('你好，我是'+(this.name||'无名'));}})
+var p=new Person({name:"jack"})
+p.sayhi();//你好，我是jack
+三、静态成员
+静态成员是指由构造函数所使用的成员
+1、静态成员只能通过 `构造函数`访问，而不能通过对象来访问。
+`静态方法中的this`是指构造函数这个函数对象。
+2、实例成员只能由 `构造函教创建的对象`所使用的成员
+function Person(name){
+    var name=name;
+    this.sex='男';
+    this.sayhello=function(){document.write(name);}
+}
+Person.age=123;
+Person.sayhi=function(){document.write(this.sex+','+this.age);}
+Person.sayhi();
+var p=new Person('bugtrap');
+document.write(p.age);//undefined,123undefined
+
+利用HTML的表单和JavaScript的对象完成表单生成器的练习。
+//1、定义表单项存储格式 姓名:<input type='text' name='user'>,如
+{text:'姓名:'//提示文本
+tag:'input',//标签名
+attr: {type:'text',name:'user')//标签属性
+option:null//选项}
+//2、保存所有的表单对象利用一个数组保存所有的表单对象var data=[{},{},{},{},{},{}];
+//3、编写表单生成器
+    1、创建一个构造函数，他包含一个成员，该成员表示要创建的表单项
+function FormBuilder(data)
+    this.data=data;
+    2、为构造函数的原型对象添加一个create()方法，该方法用于生成表单项的html代码。
+FormBuilder.prototype.create=function(){
+    var html='';
+    for(var i in data)
+        html+='<tr>'+toHTML(data[i])+'</tr>';
+    return'</form><table>'+html+'</form></table>';
+}
+function toHTML(item){
+    var html='<th>'+item.text+'</th><td>';
+    if(item.tag=='input')
+        return html+inputHTML(item)+'</td>'
+    else
+        return html+textareaHTML(item)+'</td>';
+    return html;
+}
+//4、将html字符串嵌入页面中
+var formbuild=new FormBuilder(data);
+document.write(formbuild.create());
 ```

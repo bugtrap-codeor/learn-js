@@ -1,0 +1,131 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>表单生成器</title>
+    <style>
+        table {
+            border: solid 1px black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        var item1 = {
+            text: "姓名",
+            tag: "input",
+            attr: {
+                name: 'user',
+                type: "text"
+            },
+            opt: null
+        }
+        var item2 = {
+            text: "性别",
+            tag: "input",
+            attr: {
+                name: "gender",
+                type: "radio"
+            },
+            opt: [
+                ['m', "男"],
+                ["w", "女"]
+            ]
+        }
+        var item3 = {
+            text: "兴趣爱好",
+            tag: "input",
+            attr: {
+                name: "hobby",
+                type: "checkbox"
+            },
+            opt: [
+                ["s", "游泳"],
+                ["r", "读书"]
+            ]
+        }
+        var item4 = {
+            text: "住址",
+            tag: "input",
+            attr: {
+                name: "attribute",
+                type: "text"
+            },
+            opt: null
+        }
+        var item5 = {
+            text: "自我介级",
+            tag: "textarea",
+            attr: {
+                name: "introduce",
+                rows: '5',
+                cols: '50'
+            },
+            opt: null
+        }
+        var item6 = {
+            text: "",
+            tag: "input",
+            attr: {
+                value: "提交",
+                type: 'submit'
+            },
+            opt: null
+        }
+        var data = [item1, item2, item3, item4, item5, item6];
+
+        function FormBuilder(data) {
+            this.data = data;
+        }
+        FormBuilder.prototype.create = function () {
+            var html = '';
+            for (var i in data) {
+                html += '<tr>' + toHTML(data[i]) + '</tr>';
+            }
+            return '<form><table>' + html + '</form></table>';
+        }
+
+        function toHTML(item) {
+            var html = '<th>' + item.text + '</th><td>';
+            if (item.tag == 'input') {
+                return html + inputHTML(item) + '</td>';
+            } else {
+                return html + textareaHTML(item) + '</td>';
+            }
+            return html;
+        }
+
+        function inputHTML(item) {
+            var html = ''
+            var attr = attrHtml(item.attr);
+            if (item.opt == null) {
+                html += '<input ' + attr + '>';
+            } else {
+                for (var i in item.opt) {
+                    html += '<input ' + attr + 'value="' + item.opt[i][0] + '">' + item.opt[i][1];
+                }
+            }
+            return html;
+        }
+
+
+        function textareaHTML(item) {
+            return '<textarea ' + attrHtml(item.attr) + '></textarea>';
+        }
+
+        function attrHtml(attr) {
+            var html = '';
+            for (var k in attr) {
+                html += k + '="' + attr[k] + '" ';
+            }
+            return html;
+        }
+        //将html字符串嵌入页面中
+        var formbuild = new FormBuilder(data);
+        document.write(formbuild.create());
+    </script>
+</body>
+
+</html>
