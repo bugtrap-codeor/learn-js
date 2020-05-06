@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>年历制作</title>
+    <style type="text/css">
+        table {
+            display: inline;
+        }
+
+        th {
+            background-color: gray;
+        }
+
+        td {
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var year = parseInt(prompt('请输入你想要查询的年份', 2020));
+
+        function calender(year) {
+            var max = new Date(year, m, 0).getDate(); //31
+            var w = new Date(year, 0).getDay(); //1
+
+            for (var m = 1; m <= 12; m++) {
+                // htm =
+                //     `<table>
+                // <tr><th colspan="7">${year}年${m}月</th></tr>
+                // <tr><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td></tr>`
+                // for (var d = 1; d <= max; d++) {
+                //     htm +=
+                //         `
+                //         <tr><td colspan="${w == 1?6:w - 1}"></td><td>${d}</td></tr><tr>${w = w + 1 > 6 ? 0 : w + 1}</tr></table>
+                //         `
+                // }
+                var htm = '';
+                var w = new Date(year, 0).getDay();
+                for (var m = 1; m <= 12; m++) {
+                    htm +=
+                        `<table><tr><th colspan="7">${year}年${m}月</th></tr><tr><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td></tr>`
+                    var max = new Date(year, m, 0).getDate();
+
+                    for (var d = 1; d <= max; d++) {
+                        if (d == 1 && w != 1) {
+                            htm += '<tr><td colspan="';
+                            if (w == 0)
+                                htm += 6;
+                            else
+                                htm += w - 1;
+                            htm += '"></td>'
+                        }
+                        htm += '<td>' + d + '</td>';
+                        if (w == 0 && d != max) {
+                            htm += '</tr><tr>';
+                        }
+                        w = w + 1 > 6 ? 0 : w + 1
+                    }
+                }
+                htm += '</tr></table>'
+                document.write(htm)
+            }
+
+        }
+        calender(year)
+    </script>
+</body>
+
+</html>
