@@ -470,3 +470,85 @@ function toHTML(item){
 var formbuild=new FormBuilder(data);
 document.write(formbuild.create());
 ```
+
+## BOM（Brower Object Model）指的是浏览器对象模型
+
+```javascript
+窗口对象（window)：代表当前打开的浏览器窗口，定义在全局作用域中的变量、函数以及JavaScript中的内置函数都 `可以被window对象调用`。
+    指定窗口：窗口名.属性
+             窗口名.方法（参数群）
+    返回创建该窗口的窗口：opener.属性
+                    opener.方法（参数群）
+    当前窗口：self.属性
+            self.方法（参数群）
+    属性
+        name窗口的名字。
+        closed判断窗口是否已经被关闭，返回布尔值。
+        document包含当前文档的信息，(该属性本身是对象)。
+        history当前窗口最近浏览过的网页(该属性本身是对象)。
+        location窗口所显示文档的完整URL(该属性本身是对象)
+        length窗口内的框架个数。
+        opener代表使用open打开当前窗口的脚本所在的窗口。
+        self代表当前窗口。
+        top代表当前框架的最顶层窗口。
+        parent代表当前窗口的父窗口。
+        弹出对话框
+            alert()：显示带有一段消息和确认按钮的对话框。
+            prompt()：显示可提示用户输入的对话框。
+            confirm()：显示带有一段消息以及确认按钮和取消按钮的对话框
+    方法
+        open( URL, name, specs,replace ) 打开一个新窗口
+        URL：指定页面的url，如果没有指定，则打开一个新的空白窗口。
+        name可选值：
+        _blank: URL加载到一个新的窗口
+        _parent: URL加载到父框架
+        _self: URL替换当前页面
+        _top: URL替换任何可加载的框架集
+        name: 窗口名称
+        replace参数
+            值为true时，表示替换浏览历史中的当前条目。
+            值为false时（默认值），表示在浏览历史中创建新的条目。
+        close() 关闭窗口
+
+    定时器：
+    setTimeout(function () {
+        scrollBy(10,20)
+    }, 1000);
+    clearTimeout();
+    setInterval(function () {
+        scrollBy(10,20)
+    }, 1000);
+    clearInterval();
+
+文档对象（document)：代表当前打开窗口中的文档
+```
+
+![window](./img/window.png)
+
+```js
+位置对象（location)：代表特定窗口的URL信息
+    location.assign(网址)//载入新的文档，可以退回到旧网页
+    location.replace('https://www.baidu.com/')//不可退回
+    location.reload()//重新加载(刷新)当前的网页（true为从服务器刷新）
+历史对象（history)：代表当前打开窗口的前进后退记录
+    history.go(0)//刷新
+    history.forward() / history.go(1)//前进
+    history.back() / history.go(-1)//后退
+浏览器对象（navigator)：管理浏览器基本信息
+    属性和方法
+        appCodeName 浏览器的内部名称
+        appName 浏览器的名称
+        appVersion 浏览器的平台和版本信息
+        cookieEnabled 浏览器是否启用cookie的布尔值
+        platform 浏览器的操作系统平台
+        userAgent 它包含在客户端向服务器发送的请求的头字符串中，用于识别用户
+        javaEnabled() 是否在浏览器中启用Java
+屏幕对象（screen）屏幕相关的属性信息
+    属性
+        height 整个屏幕的最大高度
+        width 整个屏幕的最大宽度
+        availHeight 浏览器窗口在屏幕上可占用的最大垂直空间
+        availWidth 浏览器窗口在屏幕上可占用的最大水平空间
+        colorWidth 屏幕的颜色深度
+        pixelDepth 屏幕的位深度/色彩浓度
+```

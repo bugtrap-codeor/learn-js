@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>BOM</title>
+</head>
+
+<body>
+    <a href="javascript:open('https://www.baidu.com/','newWin','height=300,width=500')">who are you</a>
+    <br>
+    距秒杀结束仅剩<span id='d1'>00</span>天<span id='h1'>00</span>时<span id='m1'>00</span>分<span id='s1'>00</span>秒
+    <span id='msg'></span>
+    <center>
+        <span id="num">10</span><a href="https://www.baidu.com/">秒后系统会自动跳转，也可单击此链接跳转</a>
+        <button onclick="stop()">停止跳转</button>
+    </center>
+
+    <script type="text/javascript">
+        var endTime = new Date(2020, 4, 14, 0, 0, 0),
+            endSeconds = endTime.getTime();
+        var d1 = document.getElementById('d1');
+        var h1 = document.getElementById('h1');
+        var m1 = document.getElementById('m1');
+        var s1 = document.getElementById('s1');
+        var time = setInterval(seckill, 1000);
+        var d, h, s, m;
+
+        function seckill() {
+            var nowTime = new Date();
+            var remaining = parseInt((endSeconds - nowTime.getTime()) / 1000);
+            if (remaining > 0) {
+                d = parseInt(remaining / (60 * 60 * 24));
+                h = parseInt((remaining / (60 * 60)) % 24);
+                m = parseInt((remaining / 60) % 60);
+                s = parseInt(remaining % 60);
+                d1.innerText = d < 10 ? '0' + d : d;
+                h1.innerText = h < 10 ? '0' + h : h;
+                m1.innerText = m < 10 ? '0' + m : m;
+                s1.innerText = s < 10 ? '0' + s : s;
+            } else {
+                clearInterval(time);
+                d1.innerText = '00';
+                h1.innerText = '00';
+                m1.innerText = '00';
+                s1.innerText = '00';
+                document.getElementById('msg').innerHTML = '本场已结束';
+            }
+        }
+
+        //
+        var x = setInterval(countDown, 1000);
+        var sec = 10;
+
+        function countDown() {
+            var num = document.getElementById('num');
+            if (sec > 0)
+                num.innerHTML = --sec;
+            else
+                location.href = 'https://www.baidu.com/';
+        }
+
+        function stop() {
+            clearInterval(x);
+        }
+    </script>
+</body>
+
+</html>
