@@ -1,0 +1,165 @@
+<html>
+
+<head>
+    <title>购物车</title>
+    <meta charset="utf-8">
+    <style>
+        .cart,
+        .goods {
+            border: 1px solid #d5e5f5;
+            width: 1000px;
+            padding: 0px 20px;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collopse;
+        }
+
+        th,
+        td {
+            border-top: 2px solid #B201FF;
+        }
+
+        th {
+            height: 40px;
+        }
+
+        td {
+            height: 58px;
+        }
+
+        span {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .del,
+        .add.del-num,
+        .add-num,
+        #submit,
+        .add-goods,
+        .deletetr,
+        .all:hover {
+            display: inline-bLock;
+            background-color: #3366D4;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 2px;
+            color: white;
+            margin: 0px 5px;
+        }
+
+        .del,
+        .add,
+        .del-num,
+        .add-num {
+            width: 20px;
+        }
+
+        #submit,
+        .add-goods,
+        .deletetr,
+        .all:hover {
+            width: 90px;
+        }
+
+        .current {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cart">
+        <h5 align="center">我的购物车</h5>
+        <table class="goods-table">
+            <tr>
+                <th width="100"><span class="all">全选</span></th>
+                <th width="400">商品</th>
+                <th width="100">单价</th>
+                <th width="200">数量</th>
+                <th width="100">小计</th>
+                <th width="100">操作</th>
+            </tr>
+            <tr class="tol" align="right">
+                <td colspan="6">
+                    已选择<span class="snum">0</span>件商品</span>
+                    总计：<span width="100" class="price">0</span>
+                    <span id="submit">提交订单</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <h5 align="center" id="goods">商品</h5>
+    <div class="goods current">
+        <table class="cart-table">
+            <tr>
+                <th width="400">商品</th>
+                <th width="100">单价</th>
+                <th width="200">数量</th>
+                <th width="100">操作</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        var delnum = document.getElementsByClassName('del-num');
+        var addnum = document.getElementsByClassName('add-num');
+        var addgoods = document.getElementsByClassName('add-goods');
+        var subm = document.getElementsByClassName('tol')[0] //购物车表格的最后1行，提交订单所在行
+        var s = document.getElementById('submit'); //提交订单
+        var all = document.getElementsByClassName('all')[0];
+        var g = document.getElementById('goods');
+        var snum = document.getElementsByClassName('snum')[0];
+        var sprice = document.getElementsByClassName('sprice')[0];
+
+        g.onclick = function () {
+            var dg = document.getElementsByClassName('goods')[0];
+            dg.classList.toggle('current');
+        }
+        all.onclick = function () {
+            var ch = document.getElementsByClassName('check');
+            if (all.innerHTML == '全不选') {
+                for (var i = 0; i < ch.length; i++) {
+                    ch[i].checked = false;
+                }
+                all.innerText = "全选";
+                snum.innerHTML = 0;
+                sprice.innerHTML = 0;
+            } else {
+                var s1 = 0,
+                    s2 = 0;
+                var n = document.getElementsByClassName('num');
+                var t = document.getElementsByClassName('tt');
+                for (vari = n.length - 1; i >= 0; i--) {
+                    s1 += parseInt(n[i].innerHTML);
+                    s2 += parseFloat(t[i].innerHTML);
+                    ch[i].checked = true;
+                }
+                all.innerHTML = '全不选';
+                sprice.innerHTML = (s2).toFixed(2);
+                snum.innerHTML = s1;
+            }
+        }
+        s.onclick = function () {
+            var ch = document.getElementsByClassName('check');
+            var chnum = 0;
+            if (this.previousElementSibling.innerHTML > 0) {
+                for (vari = ch.length - 1; i >= 0; i--) {
+                    if (ch[i].checked)
+                        chnum++;
+                }
+                var str = '您共买了' + chnum + '种商品，总计' + sprice.innerHTML + '！';
+                alert(str);
+            } else {
+                alert('您没有购买任何商品！')
+            }
+            for (var i = 0; i < delnum.length; i++) {
+                delnum[i].onclick = function () {}
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <title>dom练习</title>
+    <meta charset="utf-8">
+    <style>
+        .style1 {
+            width: 50px;
+            height: 50;
+            background-color: blue;
+        }
+
+        .style2 {
+            width: 100px;
+            height: 100px;
+            background-color: brown;
+        }
+
+
+        .tab-box {
+            width: 310px;
+            border: solid 1px red;
+        }
+
+        .tab-head {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #206F96;
+            width: 100px;
+            display: inline-block;
+            color: white;
+            cursor: pointer;
+        }
+
+        .head-active {
+            color: black;
+            background: white;
+        }
+
+        .tab-body {
+            height: 100px;
+            line-height: 100px;
+            display: none;
+        }
+
+        .body-active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="box">
+        <div class="style1">小</div> -->
+    <div id="box" class="style1">小</div>
+    <hr />
+    <div class="tab-box">
+        <div id="head">
+            <div class="tab-head head-active">标签1</div>
+            <div class="tab-head">标签2</div>
+            <div class="tab-head">标签3</div>
+        </div>
+        <div id="body">
+            <div class="tab-body body-active">1</div>
+            <div class="tab-body">2</div>
+            <div class="tab-body">3</div>
+        </div>
+    </div>
+    <script>
+        var box = document.getElementById("box")
+        var i = 0
+        box.onclick = function () {
+            i++;
+            if (i % 2 != 0) {
+                // this.innerHTML = "<div class='style2'>大</div>"
+
+                // this.setAttribute('class', 'style2')
+                // this.innerText = '大'
+
+                this.classList.toggle('style2')
+                this.innerText = '大'
+            } else {
+                // this.innerHTML = "<div class='style1'>小</div>"
+
+                // this.setAttribute('class', 'style1')
+                // this.innerText = '小'
+
+                this.classList.toggle('style2')
+                this.innerText = '小'
+            }
+        }
+
+        var tabList = document.getElementById('head').getElementsByTagName('div');
+        var divList = document.getElementById('body').getElementsByTagName('div');
+        for (let i = 0; i < tabList.length; i++) {
+            tabList[i].onclick = function () {
+                changetab(i);
+            }
+        }
+
+        function changetab(n) {
+            for (var i = 0; i < tabList.length; i++) {
+                tabList[i].className = 'tab-head';
+                divList[i].className = 'tab-body';
+            }
+            tabList[n].classList.add('head-active')
+            divList[n].classList.add('body-active')
+        }
+    </script>
+</body>
+
+</html>
