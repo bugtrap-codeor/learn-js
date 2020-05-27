@@ -1,0 +1,129 @@
+<html>
+
+<head>
+    <title>事件</title>
+    <meta charset="utf-8">
+    <style>
+        #box {
+            height: 100px;
+            width: 100px;
+            border-radius: 50px;
+            background-color: red;
+            line-height: 100px;
+            text-align: center;
+            color: white;
+            position: relative;
+            left: 0px;
+            top: 0px;
+        }
+
+        div {
+            display: inline-block;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #smallBox {
+            background-image: url('1.jpg');
+            width: 960px;
+            height: 441px;
+            background-size: cover;
+            position: relative;
+        }
+
+        #mask {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 480px;
+            height: 220px;
+            background-color: red;
+            opacity: 0.2;
+            display: none;
+        }
+
+        #bigBox {
+            width: 960px;
+            height: 441px;
+            position: absolute;
+            vertical-align: top;
+            display: none;
+            overflow: hidden;
+        }
+
+        #big {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="smallBox">
+        <div id="mask"></div>
+    </div>
+    <div id="bigBox">
+        <img src="1.jpg" id="big">
+    </div><br>
+    <div id="box">我是小球</div>
+    <script>
+        var d = document.getElementById('box');
+        var target_left = Math.random() * (screen.availWidth / 2 - 50),
+            target_top = Math.random() * (screen.availHeight / 2 - 50);
+        var sleft = parseInt(getComputedStyle(d, null).left);
+        var stop = parseInt(getComputedStyle(d, null).top);
+        var step_left = Math.floor((target_left - sleft) / 10);
+        var step_top = Math.floor((target_top - stop) / 10);
+        d.onclick = function () {
+            clearInterval(d.timer); //防止多次触发事件，重复开启定时器
+            d.timer = setInterval(move, 100)
+        }
+
+        function move() {
+            sleft = (sleft + step_left) > target_left ? target_left : (sleft + step_left);
+            stop = (stop + step_top) > target_top ? target_top : (stop + step_top);
+            d.style.left = sleft + 'px';
+            d.style.top = stop + 'px';
+            if (sleft == target_left && stop == target_top)
+                clearInterval(d.timer);
+        }
+
+        var mask1 = document.getElementById('mask');
+        var bigBox1 = document.getElementById('bigBox');
+        var smallBox1 = document.getElementById('smallBox');
+        var img1 = document.getElementById('big');
+
+        smallBox1.onmouseover = function () {
+            bigBox1.style.display = 'inline-block';
+            mask1.style.display = 'inline-block';
+        }
+        smallBox1.onmouseout = function () {
+            bigBox1.style.display = 'none';
+            mask1.style.display = 'none';
+        }
+        smallBox1.onmousemove = function (event) {
+            var left, top;
+            if (event.pageX > 480) {
+                left = 480;
+                mask1.style.left = '480px';
+            } else {
+                left = event.pageX;
+                mask1.style.left = event.pageX + 'px';
+            }
+            if (event.pageY > 220) {
+                top = 220;
+                mask1.style.top = '220px';
+            } else {
+                top = event.pageY;
+                mask1.style.top = event.pageY + 'px';
+            }
+            var bleft = left * 2;
+            var btop = top * 2;
+            img1.style.left = -1 * bleft + 'px';
+            img1.style.top = -1 * btop + 'px';
+        }
+    </script>
+</body>
+
+</html>
